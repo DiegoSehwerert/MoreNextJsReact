@@ -1,37 +1,25 @@
 "use server";
 import prisma from "../db";
 import bcrypt from "bcrypt";
+import { revalidatePath } from "next/cache";
 
-export const createUser = async ({
-  name,
-  password,
-  mail,
-  admin,
-}: {
-  name: string;
-  password: string;
-  mail: string;
-  admin?: boolean;
-}) => {
+export const createUser = async (formData: FormData) => {
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const password = formData.get("password");
+    const hashedPassword = await bcrypt.hash(password as string, 10);
 
     const newUser = await prisma.user.create({
       data: {
-        name: name,
+        name: formData.get("name") as string,
+        mail: formData.get("mail") as string,
         password: hashedPassword,
-        mail: mail,
-        admin: admin,
+        admin: formData.get("admin") === "on",
       },
     });
 
-    return newUser;
+    revalidatePath("/admin");
   } catch (error) {
     console.error("Error al crear el usuario:", error);
     throw error;
   }
 };
-
-// export const updateUser = async ({
-
-// })

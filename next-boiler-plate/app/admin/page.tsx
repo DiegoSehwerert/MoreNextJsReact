@@ -1,10 +1,22 @@
-import CreateUserForm from "@/components/CreateUserForm";
+import AdminUserTable from "@/components/AdminUserTable";
+import db from "@/utils/db";
 
-export default function AdminPage() {
+const getData = async () => {
+  const users = await db.user.findMany({});
+  return users;
+};
+
+const AdminPage = async () => {
+  const users = await getData();
+
   return (
     <div>
-      <h1>Admin Panel</h1>
-      <CreateUserForm />
+      <div>
+        <h2>Users</h2>
+        <AdminUserTable users={users} />
+      </div>
     </div>
   );
-}
+};
+
+export default AdminPage;

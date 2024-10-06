@@ -1,10 +1,17 @@
 import CreateUserForm from "@/components/CreateUserForm";
 
-export default function AdminLayout() {
+const AdminPanelLayout = ({ children }) => {
   return (
-    <div>
-      <h1>Admin Panel</h1>
-      <CreateUserForm />
+    <div className="min-w-[85vw] max-w-[85vw]">
+      <h1 className="">Admin Panel</h1>
+      <div className="grid grid-cols-2 ">
+        <div>
+          <CreateUserForm />
+        </div>
+        <div>{children}</div>
+      </div>
     </div>
   );
-}
+};
+
+export default AdminPanelLayout;

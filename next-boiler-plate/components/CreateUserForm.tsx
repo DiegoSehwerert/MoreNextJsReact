@@ -1,60 +1,31 @@
-"use client";
-
-import { useState } from "react";
 import { createUser } from "@/utils/actions/adminUsersHandler";
 
 export default function CreateUserForm() {
-  const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [admin, setAdmin] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await createUser({ name, password, mail, admin });
-  };
-
   return (
-    <div>
-      <h2>Create a new user</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">User name</label>
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+    <div className="">
+      <h2 className="">Create a new user</h2>
+      <form className="" action={createUser}>
+        <div className="">
+          <label>User name</label>
+          <input className="border border-black" name="name" type="text" />
         </div>
         <div>
-          <label htmlFor="mail">Mail</label>
-          <input
-            type="email"
-            name="mail"
-            value={mail}
-            onChange={(e) => setMail(e.target.value)}
-          />
+          <label>Mail</label>
+          <input className="border border-black" name="mail" type="email" />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label>Password</label>
           <input
-            type="password"
+            className="border border-black"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="password"
           />
         </div>
         <div>
-          <label htmlFor="admin">Is Admin?</label>
-          <input
-            type="checkbox"
-            name="admin"
-            checked={admin}
-            onChange={(e) => setAdmin(e.target.checked)}
-          />
+          <label>Is Admin?</label>
+          <input className="border border-black" name="admin" type="checkbox" />
         </div>
-        <button type="submit">Create user</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   );
